@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import headerImg from '../assets/img/header-Img.svg'
 import bgImage from '../assets/img/Banner-bg.png'
+import { Link } from 'react-router-dom';
 
 function Banner() {
     const [loopNum, setLoopNum] = useState(0);
@@ -52,19 +53,21 @@ function Banner() {
                         Welcome to my Portfolio
                     </span>
                     <h1 className="text-6xl font-bold">
-                        Hi! I'm Syed Zain <span className="wrap">{text}<span class="material-symbols-outlined">edit</span></span>
+                        Hi! I'm Syed Zain <span className="wrap">{text}<span className="material-symbols-outlined">edit</span></span>
                     </h1>
                     <p className="my-4 text-xl">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                     </p>
                     <button className="mt-2" onClick={() => console.log('connect')}>
-                        Let’s Connect <span class="material-symbols-outlined">
+                        Let’s Connect <span className="material-symbols-outlined">
                             keyboard_double_arrow_right
                         </span>
                     </button>
                 </div>
                 <div className="asad p-20 lg:p-20 sm:p-9 md:p-12 lg:m-4">
-                    <img src={headerImg} alt="headerImg" />
+                    <Link>
+                        <img src={headerImg} alt="headerImg" />
+                    </Link>
                 </div>
             </div>
         </>

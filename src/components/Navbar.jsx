@@ -1,6 +1,10 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
+import Zain from '../assets/img/Zain.jpg'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import { Link, NavLink } from 'react-router-dom'
+import InitContext from '../Context/InitContext'
 
 const navigation = [
     { name: 'Dashboard', href: '#', current: true },
@@ -15,6 +19,28 @@ function classNames(...classes) {
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    let { data } = useContext(InitContext)
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    let { setData } = useContext(InitContext)
+    let googleLongIn = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                // IdP data available using getAdditionalUserInfo(result)
+                setData({
+                    User: user.email,
+                    Name: user.displayName,
+                    Photo: user.photoURL
+                })
+            }).catch((error) => {
+                console.log("The Error: " + error)
+            });
+    }
     useEffect(() => {
         const onScroll = () => {
             if (window.scrollY > 50) {
@@ -26,12 +52,11 @@ export default function Navbar() {
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
     }, [])
-    console.log(scrolled)
     return (
         <Disclosure as="nav" className="bg-black fixed w-full z-10">
             {({ open }) => (
                 <>
-                    <div className={`mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ${scrolled ? "": "fixed w-full"}`} >
+                    <div className={`mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ${scrolled ? "" : "fixed w-full"}`} >
                         <div className="relative flex h-16 items-center justify-between">
                             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                                 {/* Mobile menu button*/}
@@ -47,11 +72,13 @@ export default function Navbar() {
                             </div>
                             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                 <div className="flex flex-shrink-0 items-center">
-                                    <img
-                                        className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                        alt="Your Company"
-                                    />
+                                    <Link>
+                                        <img
+                                            className="h-8 w-auto"
+                                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                            alt="Your Company"
+                                        />
+                                    </Link>
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
                                     <div className="flex space-x-4">
@@ -87,11 +114,13 @@ export default function Navbar() {
                                         <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                             <span className="absolute -inset-1.5" />
                                             <span className="sr-only">Open user menu</span>
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src="https://lh3.googleusercontent.com/pw/AIL4fc9gmnzP-DtaDPANL7BvfllF3oz1xEpEKmmJ63efxQpSbWiF1VxmwUSc_7E28502lI9y-sEGH3YSEaf6gF9UbYKbSRsl5Ckasq4Uv0EYOjKloFK45GyBdhdJWJm7tyyPBtcDyi6rdYC4vNB4IG__SMJY-2dEUUEI65L3tWbC57An37kJtvceb2DTSBNrbQCFhYOZ-C49hMsMDbNpOPrKjZPuJewsdr_6U_RRADSvBda6BeEOSJxQieShCEfjLQOdhH4Pa249D-tJ_XuHc2sbZ4IoPpqy5EAKHNMZ4T6fcbdx8dXt65E32JONwT4cFaRYQkd1VY-8BmnnddjrKez7YOA5NSJ0iqBfmeMDwXN8FtrFr_XJ13R6VUeGj_Wux5WlThwRVmjWihA279OogDH8ig1igjGalr06CSlGwLECJEjhvWNnv8e_yNYu-_UzYsHZVino9oHvgkL_tXh52WYQiJe2xNPAhsRQ4irnwj2k2P06I7U-VFx1J0XEGzgoZnVr8pk4Npz55IQrIY_LwqbLsCCpgAftW9G5lKQQW13-FlKmeb2zMcP_VzHVlZ0gRDifDWFJoXtdKeEJKA2fmVs7kaH4Zwi-Zr-v3NdUc1f-vhQpPNMOHCiov-J5Cop4KfbmFTGIDqhrPF2GZUveFnylvZ1LAhwmczO0FagheYnVwFqOzTY99cGMpp81pwBV9oGVlzd_BtuoSE7kmu2U-bnREV8xSCZqjRmxmXihC0v8peWzsyNtPB0dkkRDZEAyoeMZhNHR7_xTTJYI9ONwh5Dm0cDeHVPVIBZaXO-V_sWFm1oVBJMBSI67sWDlD0HLYH4nOB_tqx29xTuojyz78IsgjIZ7NxCgcUFNT3FCIudBx3lkm4bm8Gx0AWjZn-P4hU8w9KuaNtr_rPeqoZ60Iy1Piw=w618-h619-s-no?authuser=0"
-                                                alt=""
-                                            />
+                                            <Link>
+                                                <img
+                                                    className="h-8 w-8 rounded-full"
+                                                    src={data.Photo ? data.Photo : Zain}
+                                                    alt=""
+                                                />
+                                            </Link>
                                         </Menu.Button>
                                     </div>
                                     <Transition
@@ -106,32 +135,33 @@ export default function Navbar() {
                                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <Menu.Item>
                                                 {({ active }) => (
-                                                    <a
+                                                    <NavLink
                                                         href="#"
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Your Profile
-                                                    </a>
+                                                    </NavLink>
                                                 )}
                                             </Menu.Item>
-                                            <Menu.Item>
+                                            {data.Photo ? <Menu.Item>
                                                 {({ active }) => (
-                                                    <a
-                                                        href="#"
+                                                    <NavLink
+                                                        to="chat"
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
-                                                        Settings
-                                                    </a>
+                                                        Chat Me
+                                                    </NavLink>
                                                 )}
-                                            </Menu.Item>
+                                            </Menu.Item> : null}
                                             <Menu.Item>
                                                 {({ active }) => (
-                                                    <a
-                                                        href="#"
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Sign out
-                                                    </a>
+                                                    <NavLink
+                                                        // to="/lo" 
+                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                                        <button onClick={() => googleLongIn()}>
+                                                            Sign In
+                                                        </button>
+                                                    </NavLink>
                                                 )}
                                             </Menu.Item>
                                         </Menu.Items>

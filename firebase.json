@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "syed-zain-e3efb",
     "public": "dist",
     "ignore": [
       "firebase.json",

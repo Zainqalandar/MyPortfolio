@@ -4,6 +4,7 @@ import meter1 from '../assets/img/meter1.svg'
 import meter2 from '../assets/img/meter2.svg'
 import meter3 from '../assets/img/meter3.svg'
 import "react-multi-carousel/lib/styles.css";
+import { Link } from 'react-router-dom'
 import colorSharp from '../assets/img/color-sharp.png'
 const responsive = {
     superLargeDesktop: {
@@ -28,32 +29,42 @@ const responsive = {
 function Skills() {
     return (
         <div
-        className=' bg-neutral-900 h-full p-5'
+            className=' bg-neutral-900 h-full p-5'
             style={{ backgroundImage: `url(${colorSharp})` }}
         >
             <div className=" bg-gray-900 text-white w-[80%] mx-auto rounded-xl p-4 sm:-mt-9 md:-mt-12 lg:-mt-20 xl:-mt-24" id="skills">
-                <h1 className=' text-center text-5xl font-bold my-2 text-white'>Skills-zain</h1>
+                <h1 className=' text-center text-5xl font-bold my-2 text-white'>Skills</h1>
                 <p className=' mx-12 text-center my-5 text-lg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto sed dolorem quas incidunt fuga numquam nesciunt dolore quod quibusdam, at optio repellat.</p>
                 <div>
                     <Carousel className='  mx-12 h-[300px]' infinite={true} responsive={responsive} >
                         <div className="item flex flex-col items-center">
-                            <img className=' w-40' src={meter1} alt="Image" />
+                            <Link>
+                                <img className=' w-40' src={meter1} alt="Image" />
+                            </Link>
                             <h5>Web Development</h5>
                         </div>
                         <div className="item flex flex-col items-center">
-                            <img className=' w-40' src={meter2} alt="Image" />
+                            <Link>
+                                <img className=' w-40' src={meter2} alt="Image" />
+                            </Link>
                             <h5>Brand Identity</h5>
                         </div>
                         <div className="item flex flex-col items-center">
-                            <img className=' w-40' src={meter3} alt="Image" />
+                            <Link>
+                                <img className=' w-40' src={meter3} alt="Image" />
+                            </Link>
                             <h5>Web Design</h5>
                         </div>
                         <div className="item flex flex-col items-center">
-                            <img className=' w-40' src={meter1} alt="Image" />
+                            <Link>
+                                <img className=' w-40' src={meter1} alt="Image" />
+                            </Link>
                             <h5>Logo Design</h5>
                         </div>
                         <div className="item flex flex-col items-center">
-                            <img className=' w-40' src={meter1} alt="Image" />
+                            <Link>
+                                <img className=' w-40' src={meter1} alt="Image" />
+                            </Link>
                             <h5>Instagram marketing</h5>
                         </div>
                     </Carousel>
